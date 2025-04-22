@@ -2,10 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\EmergencyMapController;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome');
-})->name('home');
+Route::get('/', [EmergencyMapController::class, 'index'])->name('map');
+Route::post('/emergency', [EmergencyMapController::class, 'store']);
+
 
 Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
