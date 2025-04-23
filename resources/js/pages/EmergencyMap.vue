@@ -2,9 +2,14 @@
     <div class="flex flex-col items-center justify-center gap-6 p-4">
       <Card class="w-full max-w-md text-center space-y-4">
         <CardContent class="p-6 flex flex-col items-center gap-4">
-          <Button @click="callHelp" class="text-lg px-6 py-4 bg-red-600 hover:bg-red-700 text-white rounded-2xl">
-            🚨 PANGGIL BANTUAN 🚨
-          </Button>
+          <div class="flex justify-center items-center h-[300px]">
+    <Button
+      class="w-48 h-48 rounded-full text-white text-xl font-bold bg-red-600 hover:bg-red-700 shadow-lg transition"
+      @click="callHelp"
+    >
+     Call Help
+    </Button>
+  </div>
   
           <!-- MAP container (selalu dirender, hanya disembunyikan) -->
           <div
@@ -15,7 +20,7 @@
           />
   
           <div v-if="estimatedTime" class="text-base font-semibold text-green-600">
-            ⏱️ Estimasi bantuan tiba: <strong>{{ estimatedTime }} menit</strong>
+            ⏱️ Estimated arrival: <strong>{{ estimatedTime }} minute(s)</strong>
           </div>
         </CardContent>
       </Card>
