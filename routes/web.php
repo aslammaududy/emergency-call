@@ -8,6 +8,7 @@ use App\Http\Controllers\EmergencyResponseController;
 Route::get('/', [EmergencyMapController::class, 'index'])->name('map');
 Route::post('/emergency', [EmergencyMapController::class, 'store']);
 Route::get('/emergency-response', [EmergencyResponseController::class, 'index'])->name('emergency-response');
+Route::patch('/emergency-response/{emergency}', [EmergencyResponseController::class, 'update']);
 
 
 Route::get('dashboard', function () {

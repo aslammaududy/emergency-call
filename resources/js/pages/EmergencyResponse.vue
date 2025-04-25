@@ -5,7 +5,7 @@ import StatusCard from '@/components/StatusCard.vue'
 import echo from '@/echo';
 
 const statuses = ['waiting', 'dispatched', 'completed']
-const currentFilter = ref('all')
+const currentFilter = ref('waiting')
 
 const props = defineProps({
     emergencies: {
@@ -22,14 +22,14 @@ const props = defineProps({
 })
 
 const filteredItems = computed(() => {
-    if (currentFilter.value === 'all') {
-        return props.emergencies
-    }
+    // if (currentFilter.value === 'all') {
+    //     return props.emergencies.filter(item => item.status === currentFilter.value)
+    // }
     return props.emergencies.filter(item => item.status === currentFilter.value)
 })
 
 echo.channel('emergency')
-    .listen('EmergencyCalled', (e) => {
+    .listen('EmergencyCalled', (e: any) => {
         const index = props.emergencies.findIndex(item => item.id === e.emergency.id)
         if (index !== -1) {
             props.emergencies[index] = e.emergency
@@ -48,12 +48,6 @@ echo.channel('emergency')
             </header>
 
             <div class="mb-6 flex flex-wrap gap-3">
-                <button @click="currentFilter = 'all'"
-                    class="rounded-full px-4 py-2 text-sm font-medium transition-colors" :class="currentFilter === 'all'
-                        ? 'bg-secondary text-secondary-foreground'
-                        : 'bg-primary text-primary-foreground hover:bg-primary/80'">
-                    All Emergencies
-                </button>
                 <button v-for="status in statuses" :key="status" @click="currentFilter = status"
                     class="rounded-full px-4 py-2 text-sm font-medium transition-colors" :class="currentFilter === status
                         ? 'bg-secondary text-secondary-foreground'
