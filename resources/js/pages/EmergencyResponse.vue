@@ -2,7 +2,7 @@
 
 import { ref, computed } from 'vue'
 import StatusCard from '@/components/StatusCard.vue'
-import Echo from '@/echo';
+import echo from '@/echo';
 
 const statuses = ['waiting', 'dispatched', 'completed']
 const currentFilter = ref('all')
@@ -28,7 +28,7 @@ const filteredItems = computed(() => {
     return props.emergencies.filter(item => item.status === currentFilter.value)
 })
 
-Echo.channel('emergency')
+echo.channel('emergency')
     .listen('EmergencyCalled', (e) => {
         const index = props.emergencies.findIndex(item => item.id === e.emergency.id)
         if (index !== -1) {
