@@ -28,6 +28,15 @@ const filteredItems = computed(() => {
     return props.emergencies.filter(item => item.status === currentFilter.value)
 })
 
+Echo.channel('emergency')
+    .listen('EmergencyCalled', (e) => {
+        const index = props.emergencies.findIndex(item => item.id === e.emergency.id)
+        if (index !== -1) {
+            props.emergencies[index] = e.emergency
+        } else {
+            props.emergencies.unshift(e.emergency)
+        }
+    })
 </script>
 
 <template>
@@ -63,18 +72,4 @@ const filteredItems = computed(() => {
             </div>
         </div>
     </div>
-    <!-- <div v-for="emergency in emergencies">
-        <Card>
-            <CardHeader>
-                <CardTitle>Card Title</CardTitle> -->
-    <!-- <CardDescription>Card Description</CardDescription> -->
-    <!-- </CardHeader>
-            <CardContent>
-                Card Content
-            </CardContent> -->
-    <!-- <CardFooter>
-      Card Footer
-    </CardFooter> -->
-    <!-- </Card>
-    </div> -->
 </template>

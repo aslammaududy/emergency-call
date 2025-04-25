@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Events\EmergencyCalled;
 
 class EmergencyMapController extends Controller
 {
@@ -25,7 +26,9 @@ class EmergencyMapController extends Controller
     ]);
 
     // Store the emergency data in the database
-    \App\Models\Emergency::create($request->all());
+    $emergency = \App\Models\Emergency::create($request->all());
+
+    EmergencyCalled::dispatch($emergency);
 
     // Redirect back to the map page with a success message
     return redirect()->intended(route('map', absolute: false));

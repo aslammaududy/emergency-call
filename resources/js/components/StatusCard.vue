@@ -1,7 +1,7 @@
 <template>
     <Card class="w-full transition-all duration-300 hover:shadow-md">
       <CardHeader class="flex flex-row items-center justify-between pb-2">
-        <CardTitle class="text-lg md:text-xl">Emergency</CardTitle>
+        <CardTitle class="text-lg md:text-xl">Emergency # {{item.id}}</CardTitle>
         <div class="flex items-center gap-2">
           <span 
             class="inline-block h-2.5 w-2.5 rounded-full" 
