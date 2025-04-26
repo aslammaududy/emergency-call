@@ -38,6 +38,7 @@ cp .env.example .env
 composer install
 php artisan key:generate
 php artisan migrate
+npm install (if using NPM)
 composer run dev
 php artisan reverb:start
 
