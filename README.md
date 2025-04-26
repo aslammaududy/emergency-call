@@ -39,8 +39,11 @@ composer install
 php artisan key:generate
 php artisan migrate
 npm install (if using NPM)
+php artisan reverb:install
 composer run dev
 php artisan reverb:start
+
+add `EMERGENCY_BASE_LATITUDE` dan `EMERGENCY_BASE_LONGITUDE` to env 
 
 ## Future Improvements
 
