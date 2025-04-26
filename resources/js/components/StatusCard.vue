@@ -19,7 +19,7 @@
           <div class="flex items-center text-sm text-muted-foreground">
             <MapPinIcon class="mr-1 h-4 w-4" />
             Location: {{ item.latitude.toFixed(4) }}, {{ item.longitude.toFixed(4) }}
-            <span class="ms-2">Est: 6 minute(s)</span>
+            <span class="ms-2">Est: {{ item.eta }} minute(s)</span>
           </div>
         </div>
         <div class="flex items-center gap-2">
@@ -62,6 +62,7 @@ const props = defineProps<{
     latitude: number
     longitude: number
     status: string
+    eta: number
     created_at: string
     updated_at: string
   }

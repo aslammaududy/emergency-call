@@ -26,7 +26,7 @@ class EmergencyMapController extends Controller
         'longitude' => 'required|numeric',
     ]);
 
-    $eta = Geo::haversineDistance(config('emergency.default.latitude'),config('emergency.default.longitude'),$request->latitude, $request->longitude);
+    $distance = Geo::haversineDistance(config('emergency.default.latitude'),config('emergency.default.longitude'),$request->latitude, $request->longitude);
     $avgSpeed = 40; // km/h
     $eta = ceil(($distance / $avgSpeed) * 60); // dalam menit
     
