@@ -44,7 +44,6 @@ php artisan reverb:start
 ## Future Improvements
 
 - [ ] Authentication & role-based access (admin/responder/citizen)
-- [ ] Emergency status updates (e.g., in progress, resolved)
 - [ ] Notification system for responders
 - [ ] Mobile-friendly UI for faster access
 - [ ] Better error handling and validations
