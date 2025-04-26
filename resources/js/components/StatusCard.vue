@@ -32,6 +32,11 @@
           </Button>
         </div>
       </div>
+      <hr>
+      <div class="flex flex-row items-center py-2">
+        <div ref="mapContainer" class="rounded-xl overflow-hidden w-full border shadow"
+        style="height: 300px" />
+      </div>
     </CardContent>
   </Card>
 </template>
@@ -40,8 +45,15 @@
 import { ClockIcon, MapPinIcon } from 'lucide-vue-next'
 import { formatRelativeTime, getStatusColor, getStatusDotColor } from '@/lib/utils'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
-import echo from '@/echo';
 import { router } from '@inertiajs/vue3';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import { ref } from 'vue';
+
+const location = ref(null);
+const estimatedTime = ref(null);
+const map = ref<L.Map | null>(null);
+const mapContainer = ref(null);
 
 const props = defineProps<{
   item: {
@@ -60,10 +72,21 @@ function act(status: string) {
   })
 }
 
-// echo.channel('emergency')
-//   .listen('EmergencyStatusUpdated', (e: any) => {
-//     if (props.item.id === e.emergency.id) {
-//       props.item.status = e.emergency.status
-//     }
-//   })
+import { onMounted, nextTick } from 'vue';
+
+onMounted(() => {
+  nextTick(() => {
+    if (mapContainer.value) {
+      map.value = L.map(mapContainer.value).setView([props.item.latitude, props.item.longitude], 16);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors',
+      }).addTo(map.value as L.Map);
+
+      L.marker([props.item.latitude, props.item.longitude])
+        .addTo(map.value as L.Map)
+        .bindPopup('Lokasi Anda')
+        .openPopup();
+    }
+  });
+});
 </script>
