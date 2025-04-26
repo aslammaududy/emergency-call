@@ -10,5 +10,6 @@ class Emergency extends Model
         'latitude',
         'longitude',
         'status',
+        'eta',
     ];
 }

@@ -11,7 +11,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton('geo', function ($app) {
+            return new \App\Services\Geo();
+        });
     }
 
     /**

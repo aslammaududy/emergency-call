@@ -16,6 +16,7 @@ return new class extends Migration
             $table->decimal('latitude', 10, 7);
             $table->decimal('longitude', 10, 7);
             $table->enum('status', ['waiting', 'dispatched', 'completed'])->default('waiting');
+            $table->integer('eta')->nullable();
             $table->timestamps();
         });
     }

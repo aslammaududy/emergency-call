@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 use App\Events\EmergencyCalled;
+use App\Facades\Geo;
 
 class EmergencyMapController extends Controller
 {
@@ -25,8 +26,16 @@ class EmergencyMapController extends Controller
         'longitude' => 'required|numeric',
     ]);
 
+    $eta = Geo::haversineDistance(config('emergency.default.latitude'),config('emergency.default.longitude'),$request->latitude, $request->longitude);
+    $avgSpeed = 40; // km/h
+    $eta = ceil(($distance / $avgSpeed) * 60); // dalam menit
+    
     // Store the emergency data in the database
-    $emergency = \App\Models\Emergency::create($request->all());
+    $emergency = \App\Models\Emergency::create([
+        'latitude' => $request->latitude,
+        'longitude' => $request->longitude,
+        'eta' => $eta,
+    ]);
 
     EmergencyCalled::dispatch($emergency);
 

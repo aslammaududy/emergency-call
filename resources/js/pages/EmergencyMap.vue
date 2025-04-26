@@ -22,18 +22,37 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, nextTick } from 'vue';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { router } from '@inertiajs/vue3';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import echo from '@/echo';
 
-const location = ref(null);
-const estimatedTime = ref(null);
-const map = ref(null);
-const mapContainer = ref(null);
+interface Location {
+  latitude: number;
+  longitude: number;
+}
+
+interface Emergency {
+  eta?: number;
+}
+
+const location = ref<Location | null>(null);
+const estimatedTime = ref<number | null>(null);
+const map = ref<L.Map | null>(null);
+const mapContainer = ref<HTMLElement | null>(null);
+
+const props = defineProps<{
+  emergency: Emergency;
+}>();
+
+echo.channel('emergency')
+  .listen('EmergencyCalled', (e: any) => {
+    estimatedTime.value = e.emergency.eta|0 || null;
+  });
 
 const callHelp = () => {
   if (!navigator.geolocation) {
@@ -51,17 +70,15 @@ const callHelp = () => {
         longitude,
       });
 
-      estimatedTime.value = 5;
-
       await nextTick(); // pastikan elemen mapContainer sudah aktif
       if (!map.value && mapContainer.value) {
         map.value = L.map(mapContainer.value).setView([latitude, longitude], 16);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           attribution: '&copy; OpenStreetMap contributors',
-        }).addTo(map.value);
+        }).addTo(map.value as L.Map);
 
         L.marker([latitude, longitude])
-          .addTo(map.value)
+          .addTo(map.value as L.Map)
           .bindPopup('Lokasi Anda')
           .openPopup();
       }
