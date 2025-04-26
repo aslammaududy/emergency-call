@@ -39,6 +39,7 @@ composer install
 php artisan key:generate
 php artisan migrate
 composer run dev
+php artisan reverb:start
 
 ## Future Improvements
 
