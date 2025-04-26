@@ -19,7 +19,7 @@ It’s ideal for use in urban safety systems, campuses, or community health resp
    The frontend captures geolocation and sends it to the Laravel backend.
 
 2. **Real-time broadcasting**  
-   Laravel WebSockets broadcasts the request to listener.
+   Laravel Reverb broadcasts the request to listener.
 
 3. **Dashboard response**  
    Emergency calls are plotted live on a Leaflet map, showing location, time, and status.
