@@ -43,8 +43,8 @@ php artisan reverb:install
 composer run dev
 php artisan reverb:start
 
-add `EMERGENCY_BASE_LATITUDE` dan `EMERGENCY_BASE_LONGITUDE` to env 
-
+add EMERGENCY_BASE_LATITUDE and EMERGENCY_BASE_LONGITUDE to env 
+```
 ## Future Improvements
 
 - [ ] Authentication & role-based access (admin/responder/citizen)
